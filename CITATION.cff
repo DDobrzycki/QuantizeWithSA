@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+title: "QuantizeWithSA: PTQ Quantizer using Simulated Annealing for Variable Fractional Bits Allocation"
+message: "If you use this PTQ quantizer in your research, please cite it using the following metadata."
+type: software
+authors:
+  - family-names: "Dobrzycki"
+    given-names: "Andrzej Daniel"
+    orcid: "https://orcid.org/0009-0005-9756-4623"
+
+repository-code: "https://github.com/DDobrzycki/QuantizeWithSA.git"
+license: CC
+version: "1.0"
+year: 2024
