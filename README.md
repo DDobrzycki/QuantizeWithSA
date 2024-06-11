@@ -61,7 +61,7 @@ To run the project, use the following command:
 
 ## Examples
 
-...
+python3 main.py --model_name cnn_mnist --number_simulations 1 
 
 ## Contributing
 
