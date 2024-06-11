@@ -1,7 +1,7 @@
 
 # QuantizeWithSA
 
-Welcome to our PTQ repository, featuring a flexible quantization tool utilizing the simulated annealing algorithm. This tool empowers users to quantize their desired models with fixed-point precision, optimizing performance while preserving accuracy. Customize simulations, convergence steps, and search ranges for fractional bits, ensuring tailored quantization results. Control degradation thresholds and convergence guidance through adjustable hyperparameters for fine-tuning. Explore our repository and unlock efficient model compression with ease.
+Welcome to our PTQ repository, featuring a flexible quantization tool utilizing the Simulated Annealing algorithm. This tool empowers users to quantize their desired models with fixed-point precision, optimizing performance while preserving accuracy. Customize simulations, convergence steps, and search ranges for fractional bits, ensuring tailored quantization results. Control degradation thresholds and convergence guidance through adjustable hyperparameters for fine-tuning. Explore our repository and unlock efficient model compression with ease.
 
 ## Table of Contents
 
