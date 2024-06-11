@@ -56,7 +56,7 @@ After completing these steps, the required dependencies will be installed, and y
 
 To run the project, use the following command:
 ```bash
-
+python3 main.py --model_name cnn_mnist --number_simulations 1 
 ```
 
 ## Examples
