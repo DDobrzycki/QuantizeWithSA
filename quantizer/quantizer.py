@@ -28,12 +28,14 @@ class Quantizer(object):
 
         self.factor = 10
         self.test_acc = 0
+        self.best_acc = -1
         self.n_int = 1
 
         self.last_i = -1
         self.new_cost = -1
         self.lower_bound = -1
         self.weights_cost = []
+        self.accs = []
 
         self.model = None
         self.x_test = None
@@ -43,8 +45,6 @@ class Quantizer(object):
 
         self.args = {}
         self.w_dict = {}
-        self.final_acc_sim = []
-        self.final_avg_sim = []
         self.layers_of_interest = []
 
         models_instance = Models()
@@ -63,6 +63,7 @@ class Quantizer(object):
         self.w_dict = {layer.name: layer.get_weights() for layer in self.model.layers}
 
         self.test_acc = self.model.evaluate(self.x_test, self.y_test, verbose=0)[1]
+
         self.lower_bound = (self.test_acc-(self.max_degradation/100))*self.factor
 
         self._get_interested_layers()
@@ -76,10 +77,10 @@ class Quantizer(object):
             layer.set_weights([Fxp(self.w_dict[layer.name][0], like=fxp_by_layer[i]),
                                Fxp(self.w_dict[layer.name][1], like=fxp_by_layer[i])])
 
-        actual_acc = self.model.evaluate(self.x_test, self.y_test, verbose=0)[1] * self.factor
+        self.actual_acc = self.model.evaluate(self.x_test, self.y_test, verbose=0)[1] * self.factor
         avg_bits = normalize([[sum(x) / len(self.layers_of_interest), max(self.min_frac_bits, self.max_frac_bits)]])[0][0]
-        cost = gamma * ((self.lower_bound - actual_acc) ** 2) + beta * avg_bits - alpha * self.lower_bound
-        self.weights_cost.append([gamma * ((self.lower_bound - actual_acc) ** 2) / cost,
+        cost = gamma * ((self.lower_bound - self.actual_acc) ** 2) + beta * avg_bits - alpha * self.lower_bound
+        self.weights_cost.append([gamma * ((self.lower_bound - self.actual_acc) ** 2) / cost,
                                   beta * avg_bits / cost,
                                   alpha * self.lower_bound / cost])
         return cost
@@ -139,6 +140,7 @@ class Quantizer(object):
 
         state = self._random_start()
         cost = self._cost_function(state, alpha, beta, gamma)
+        self.accs.append(self.actual_acc / self.factor)
         costs = [cost]
         states = [state[:]]
         self.weights_cost = []
@@ -159,8 +161,13 @@ class Quantizer(object):
                     )
             if self.acceptance_probability(cost, self.new_cost, t) > rn.random():
                 state, cost = new_state, self.new_cost
+                self.accs.append(self.actual_acc / self.factor)
                 print("  ==> Accept it!")
             else:
                 print("  ==> Reject it...")
-                
-        return state, self._cost_function(state, alpha, beta, gamma), states, costs
+                self.accs.append(self.accs[-1])
+
+        final_cost = cost
+        final_acc = self.accs[-1]
+
+        return state, final_cost, states, costs, final_acc

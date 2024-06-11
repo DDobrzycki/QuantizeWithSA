@@ -4,22 +4,34 @@ import seaborn as sns
 import numpy as np
 
 sns.set_theme(context="talk", style="darkgrid", palette="hls", font="sans-serif", font_scale=1.05)
-FIGSIZE = (19, 8)  #: Figure size, in inches!
+FIGSIZE = (25, 8)  #: Figure size, in inches!
 mpl.rcParams['figure.figsize'] = FIGSIZE
 
-def see_annealing(states, costs, state, alpha, beta, gamma, lower_bound, factor, actual_acc, simulations, max_steps, time_stamp, c):
+def see_annealing(states, costs, state, alpha, beta, gamma, lower_bound, factor, accs, actual_acc, test_acc, simulations, max_steps, time_stamp, c):
     plt.figure()
+
     plt.suptitle("Evolution of states and costs of the simulated annealing")
-    plt.subplot(121)
+
+    plt.subplot(131)
     plt.plot(np.mean(states,1), 'r')
     plt.title(f"States      Final state: {state} -> Avg bits: {sum(state)/len(state):.3f}")
     plt.xlabel('Step')
     plt.ylabel('Avg nº of bits')
-    plt.subplot(122)
+
+    plt.subplot(132)
+    plt.plot(accs, 'k')
+    plt.axhline(y=test_acc, color='k', linestyle=':', label=f"float32 accuracy: {test_acc:.3f}")
+    plt.title("Accuracy evolution over accepted states")
+    plt.xlabel('Step')
+    plt.ylabel('Accuracy')
+    plt.legend()
+
+    plt.subplot(133)
     plt.plot(costs, 'b',label=f"\u03B1:{alpha:.2f}, \u03B2:{beta:.2f}, \u03B3:{gamma:.2f}\nLower bound: {lower_bound/factor:.3f}\nFinal acc: {actual_acc:.3f}\nError: {((lower_bound/factor)-actual_acc):.3f} ")
-    plt.title(f"Costs           Final cost: {c:.3f}")
+    plt.title(f"Costs           Final state cost: {c:.3f}")
     plt.xlabel('Step')
     plt.ylabel('Cost')
+
     plt.legend()
     plt.savefig(f'./output_simulations/{simulations}_sims_max_steps_{max_steps}/sim_{max_steps}_steps_{time_stamp}.pdf', format="pdf", bbox_inches="tight")
     plt.close()
