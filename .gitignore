@@ -1,6 +1,3 @@
 .vscode
+__pycache__
 output_simulations
-optimizer
-utils
-weights
-main.py
