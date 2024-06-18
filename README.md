@@ -61,7 +61,7 @@ python3 main.py --help
 ### Example Output
 
 When you run the help command, you will see an output like this:
-```bash
+```console
 usage: main.py [-h] --model_name {cnn_mnist,convnet_js,custom} [--number_simulations NUMBER_SIMULATIONS] [--max_steps MAX_STEPS] [--min_frac_bits MIN_FRAC_BITS] [--max_frac_bits MAX_FRAC_BITS]
                [--max_degradation MAX_DEGRADATION] [--alpha ALPHA] [--beta BETA] [--gamma GAMMA] [--seed SEED] [--plots PLOTS]
 
