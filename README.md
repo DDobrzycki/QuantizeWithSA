@@ -113,7 +113,7 @@ Generated Plots:
 1. Fork the repository.
 2. Create a new branch: `git checkout -b feature-name`.
 3. Make your changes.
-4. Push your branch: `git push origin feature-name`.
+4. Push your branch: `git push develop feature-name`.
 5. Create a pull request.
 
 ## License
