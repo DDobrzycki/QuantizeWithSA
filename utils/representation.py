@@ -10,7 +10,7 @@ mpl.rcParams['figure.figsize'] = FIGSIZE
 def see_annealing(states, costs, state, alpha, beta, gamma, lower_bound, factor, accs, actual_acc, test_acc, simulations, max_steps, time_stamp, c):
     plt.figure()
 
-    plt.suptitle("Evolution of states and costs of the simulated annealing")
+    plt.suptitle("Evolution of states and costs of the simulated annealing", fontweight="bold")
 
     plt.subplot(131)
     plt.plot(np.mean(states,1), 'r')
@@ -33,7 +33,7 @@ def see_annealing(states, costs, state, alpha, beta, gamma, lower_bound, factor,
     plt.ylabel('Cost')
 
     plt.legend()
-    plt.savefig(f'./output_simulations/{simulations}_sims_max_steps_{max_steps}/sim_{max_steps}_steps_{time_stamp}.pdf', format="pdf", bbox_inches="tight")
+    plt.savefig(f'./output_simulations/{simulations}_sims_max_steps_{max_steps}/sim_{max_steps}_steps_{time_stamp}.png', format="png", bbox_inches="tight")
     plt.close()
 
 def see_weights_cost(weights_cost, simulations, max_steps, time_stamp):
@@ -46,7 +46,7 @@ def see_weights_cost(weights_cost, simulations, max_steps, time_stamp):
     plt.plot(beta_cost,label="\u03B1*avg_bits")
     plt.plot(gamma_cost,label="\u03B3*(lower_bound-actual_acc)")
     plt.legend()
-    plt.savefig(f'./output_simulations/{simulations}_sims_max_steps_{max_steps}/sim_weights_{max_steps}_steps_{time_stamp}.pdf', format="pdf", bbox_inches="tight")
+    plt.savefig(f'./output_simulations/{simulations}_sims_max_steps_{max_steps}/sim_weights_{max_steps}_steps_{time_stamp}.png', format="png", bbox_inches="tight")
     plt.close()
 
 def plot_gaussian_avg_bits(final_avg_sim, alpha, beta, gamma, simulations, max_steps, time_stamp):
@@ -60,7 +60,7 @@ def plot_gaussian_avg_bits(final_avg_sim, alpha, beta, gamma, simulations, max_s
             linewidth=2, color='r',label=f"μ:{mean_avg:.3f}, \u03c3:{std_avg:.3f} \n\u03B1:{alpha:.2f}, \u03B2:{beta:.2f}, \u03B3:{gamma:.2f}\n")
     plt.title(f"Distribution of the final avg bits with {simulations} simulations ")
     plt.legend()
-    plt.savefig(f'./output_simulations/{simulations}_sims_max_steps_{max_steps}/distribution_avg_{max_steps}_steps_{time_stamp}.pdf', format="pdf", bbox_inches="tight")
+    plt.savefig(f'./output_simulations/{simulations}_sims_max_steps_{max_steps}/distribution_avg_{max_steps}_steps_{time_stamp}.png', format="png", bbox_inches="tight")
 
     plt.close()
 
@@ -76,6 +76,6 @@ def plot_gaussian_accuracy(final_acc_sim, alpha, beta, gamma, lower_bound, facto
     plt.axvline(x=lower_bound/factor,label=f"Lower bound: {lower_bound/factor:.3f}",color='k',linestyle='dashed',linewidth=1)
     plt.title(f"Distribution of the final accuracy with {simulations} simulations ")
     plt.legend()
-    plt.savefig(f'./output_simulations/{simulations}_sims_max_steps_{max_steps}/distribution_acc_{max_steps}_steps_{time_stamp}.pdf', format="pdf", bbox_inches="tight")
+    plt.savefig(f'./output_simulations/{simulations}_sims_max_steps_{max_steps}/distribution_acc_{max_steps}_steps_{time_stamp}.png', format="png", bbox_inches="tight")
     plt.close()
 
